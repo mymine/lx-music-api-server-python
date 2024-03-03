@@ -7,11 +7,11 @@
 # ----------------------------------------
 # This file is part of the "lx-music-api-server" project.
 
-import random
 from common import Httpx
 from common import config
 from common import variable
 from common.exceptions import FailedException
+import secrets
 
 tools = {
     'url': 'https://app.c.nf.migu.cn/MIGUM2.0/strategy/listen-url/v2.4?toneFlag=__quality__&songId=__songId__&resourceType=2',
@@ -30,7 +30,7 @@ tools = {
 }
 
 async def url(songId, quality):
-    user_info = config.read_config('module.mg.user') if (not variable.use_cookie_pool) else random.choice(config.read_config('module.cookiepool.mg'))
+    user_info = config.read_config('module.mg.user') if (not variable.use_cookie_pool) else secrets.SystemRandom().choice(config.read_config('module.cookiepool.mg'))
     req = await Httpx.AsyncRequest(tools['url'].replace('__quality__', tools['qualityMap'][quality]).replace('__songId__', songId), {
         'method': 'GET',
         'headers': {

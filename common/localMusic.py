@@ -18,6 +18,7 @@ import ujson as json
 import traceback
 import mutagen
 import os
+from security import safe_command
 
 logger = log.log('local_music_handler')
 
@@ -67,7 +68,7 @@ def check_ffmpeg():
 
     if (environ_ffpmeg_path):
         try:
-            subprocess.Popen([environ_ffpmeg_path, '-version'], stdout=devnull, stderr=devnull)
+            safe_command.run(subprocess.Popen, [environ_ffpmeg_path, '-version'], stdout=devnull, stderr=devnull)
             devnull.close()
             return environ_ffpmeg_path
         except:
@@ -75,14 +76,14 @@ def check_ffmpeg():
 
     if (os.path.isfile(linux_bin_path)):
         try:
-            subprocess.Popen([linux_bin_path, '-version'], stdout=devnull, stderr=devnull)
+            safe_command.run(subprocess.Popen, [linux_bin_path, '-version'], stdout=devnull, stderr=devnull)
             devnull.close()
             return linux_bin_path
         except:
             pass
 
     try: 
-        subprocess.Popen(['ffmpeg', '-version'], stdout=devnull, stderr=devnull)
+        safe_command.run(subprocess.Popen, ['ffmpeg', '-version'], stdout=devnull, stderr=devnull)
         return 'ffmpeg'
     except:
         logger.warning('无法找到ffmpeg，对于本地音乐的一些扩展功能无法使用，如果您不需要，请忽略本条提示')
@@ -93,7 +94,7 @@ def getAudioCoverFromFFMpeg(path):
     if (not FFMPEG_PATH):
         return None
     cmd = [FFMPEG_PATH, '-i', path, TEMP_PATH + '/_tmp.jpg']
-    popen = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stdout)
+    popen = safe_command.run(subprocess.Popen, cmd, stdout=sys.stdout, stderr=sys.stdout)
     popen.wait()
     if (os.path.exists(TEMP_PATH + '/_tmp.jpg')):
         with open(TEMP_PATH + '/_tmp.jpg', 'rb') as f:

@@ -21,7 +21,8 @@ global tasks
 tasks = []
 
 class taskWrapper:
-    def __init__(self, name, function, interval = 86400, args = {}, latest_execute = 0):
+    def __init__(self, name, function, interval = 86400, args = None, latest_execute = 0):
+        args = {} if args is None else args
         self.function = function
         self.interval = interval
         self.name = name
@@ -40,7 +41,8 @@ class taskWrapper:
             logger.error(f"task {self.name} run failed, waiting for next execute...")
             logger.error(traceback.format_exc())
 
-def append(name, task, interval = 86400, args = {}):
+def append(name, task, interval = 86400, args = None):
+    args = {} if args is None else args
     global tasks
     wrapper = taskWrapper(name, task, interval, args)
     logger.debug(f"new task ({name}) registered")

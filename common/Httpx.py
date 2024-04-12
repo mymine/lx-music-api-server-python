@@ -71,7 +71,7 @@ ua_list = [ 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gec
 # 日志记录器
 logger = log.log('http_utils')
 
-def request(url: str, options = {}) -> requests.Response:
+def request(url: str, options = None) -> requests.Response:
     '''
     Http请求主函数, 用于发送网络请求
     - url: 需要请求的URL地址(必填)
@@ -87,6 +87,7 @@ def request(url: str, options = {}) -> requests.Response:
     
     @ return: requests.Response类型的响应数据
     '''
+    options = {} if options is None else options
     # 缓存读取
     cache_key = f'{url}{options}'
     if (isinstance(options.get('cache-ignore'), list)):
@@ -211,7 +212,7 @@ async def convert_to_requests_response(aiohttp_response) -> ClientResponse:
     
     return ClientResponse(status_code, content, headers)
 
-async def AsyncRequest(url, options = {}) -> ClientResponse:
+async def AsyncRequest(url, options = None) -> ClientResponse:
     '''
     Http异步请求主函数, 用于发送网络请求
     - url: 需要请求的URL地址(必填)
@@ -227,6 +228,7 @@ async def AsyncRequest(url, options = {}) -> ClientResponse:
     
     @ return: common.Httpx.ClientResponse类型的响应数据
     '''
+    options = {} if options is None else options
     if (not variable.aioSession):
         variable.aioSession = aiohttp.ClientSession(trust_env=True)
     # 缓存读取

@@ -53,7 +53,8 @@ def eapiEncrypt(url, text):
     data = "{}-36cd479b6b5-{}-36cd479b6b5-{}".format(url, text, digest)
     return {"params": aes(data.encode(), EAPIKEY).decode("utf-8")}
 
-def aes(text, key, method={}):
+def aes(text, key, method=None):
+    method = {} if method is None else method
     pad = 16 - len(text) % 16
     text = text + bytearray([pad] * pad)
     if "iv" in method:

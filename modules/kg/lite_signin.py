@@ -36,7 +36,7 @@ async def randomMixSongMid():
 
     # 因为排行榜api不会返回mixsongmid
     # 所以需要进行一次搜索接口来获取
-    search_req = await Httpx.AsyncRequest(utils.encodeURI(f'https://songsearch.kugou.com/song_search_v2?' + buildRequestParams({
+    search_req = await Httpx.AsyncRequest(utils.encodeURI('https://songsearch.kugou.com/song_search_v2?' + buildRequestParams({
         "keyword": randomSong['filename'],
         "area_code": 1,
         "page": 1,
@@ -99,7 +99,7 @@ async def do_account_signin(user_info):
         params, body, config.read_config('module.kg.client.signatureKey'))
 
     # 发送请求
-    req = await Httpx.AsyncRequest(f"https://gateway.kugou.com/v2/report/listen_song?" +
+    req = await Httpx.AsyncRequest("https://gateway.kugou.com/v2/report/listen_song?" +
                                    buildRequestParams(params), {
                                        "method": "POST",
                                        "body": body,
@@ -163,6 +163,6 @@ def task_handler():
             logger.info('用户配置缺失lite_sign_in字段，已自动写入')
         
         if (user_info.get('lite_sign_in').get('enable')):
-            scheduler.append(f'kugou_lite_sign_in', do_account_signin, user_info['lite_sign_in']['interval'], {'user_info': user_info})
+            scheduler.append('kugou_lite_sign_in', do_account_signin, user_info['lite_sign_in']['interval'], {'user_info': user_info})
 
 task_handler()

@@ -1635,7 +1635,7 @@ def main(page: flet.Page):
             # print(page.route)
             page.views.append(
                 flet.View(
-                    f"/404",
+                    "/404",
                     _404(page),
                 )
             )

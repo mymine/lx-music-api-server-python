@@ -99,7 +99,7 @@ async def lyricSearchByHash(hash_):
     hash_new = musicInfo['audio_info']['hash']
     name = musicInfo['songname']
     timelength = int(musicInfo['audio_info']['timelength']) // 1000
-    req = await Httpx.AsyncRequest(encodeURI(f'https://lyrics.kugou.com/search?ver=1&man=yes&client=pc&keyword=' +
+    req = await Httpx.AsyncRequest(encodeURI('https://lyrics.kugou.com/search?ver=1&man=yes&client=pc&keyword=' +
                             name + '&hash=' + hash_new + '&timelength=' + str(timelength)), {
         'method': 'GET',
     })

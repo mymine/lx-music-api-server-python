@@ -31,7 +31,7 @@ tools = {
 }
 
 async def url(songmid, quality):
-    info_url = f"http://app.c.nf.migu.cn/MIGUM2.0/v1.0/content/resourceinfo.do?resourceType=2&copyrightId=" + songmid
+    info_url = "http://app.c.nf.migu.cn/MIGUM2.0/v1.0/content/resourceinfo.do?resourceType=2&copyrightId=" + songmid
     info_request = await Httpx.AsyncRequest(info_url, {"method": "POST", "cache": 259200})
     infobody = info_request.json()
     if infobody["code"] != "000000":

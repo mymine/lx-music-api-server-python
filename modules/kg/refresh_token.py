@@ -56,7 +56,7 @@ async def refresh():
             logger.info('刷新登录成功')
             config.write_config('module.kg.user.userid',
                                 str(body['data']['userid']))
-            logger.info(f'已通过相应数据更新userid')
+            logger.info('已通过相应数据更新userid')
             config.write_config('module.kg.user.token',
                                 body['data']['token'])
             logger.info('已通过相应数据更新kg_token')
@@ -94,7 +94,7 @@ async def refresh():
             logger.info('刷新登录成功')
             config.write_config('module.kg.user.userid',
                                 str(body['data']['userid']))
-            logger.info(f'已通过相应数据更新userid')
+            logger.info('已通过相应数据更新userid')
             config.write_config('module.kg.user.token',
                                 body['data']['token'])
             logger.info('已通过相应数据更新kg_token')

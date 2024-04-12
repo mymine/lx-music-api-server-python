@@ -71,7 +71,7 @@ def read_code(file_path, target_line_number):
     except FileNotFoundError:
         sys.stderr.write("日志模块出错，本次日志可能无法记录，请报告给开发者: 处理错误语法高亮时找不到源文件")
     except Exception as e:
-        sys.stderr.write(f"日志模块出错，本次日志可能无法记录，请报告给开发者: \n" + traceback.format_exc())
+        sys.stderr.write("日志模块出错，本次日志可能无法记录，请报告给开发者: \n" + traceback.format_exc())
 
 def stack_info(stack_trace_line):
     try:
@@ -81,7 +81,7 @@ def stack_info(stack_trace_line):
         function_name = parts[2].split(' ')[1]  # 提取函数名
         return file_path, line_number, function_name
     except Exception as e:
-        sys.stderr.write(f"日志模块出错，本次日志可能无法记录，请报告给开发者: \n" + traceback.format_exc())
+        sys.stderr.write("日志模块出错，本次日志可能无法记录，请报告给开发者: \n" + traceback.format_exc())
 
 def highlight_error(e):
     try:
